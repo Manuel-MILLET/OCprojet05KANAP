@@ -1,10 +1,10 @@
-/*   Script Porjet 05 Kanap par Manuel MILLET 04 juillet 2022
+/*   Script Porjet 05 Kanap par Manuel MILLET 04 juillet 2022 
 Script Javascript executé par la page index.html pour l'affichage dynamique des produits
 */
 
 //const urlDeBase = "C:/Users/Manuel/Document/projet-05/sand-box-p05/back/models";
-//const urlDeBase = "https://manuel-millet.github.io/OCprojet05KANAP/back/models";
-const urlDeBase = "http://localhost:3000";
+const urlDeBase = "https://manuel-millet.github.io/OCprojet05KANAP/back/models";
+//const urlDeBase = "http://localhost:3000";
 const urlProduits = urlDeBase + "/api/products";
 class ListeCanape {
   constructor(colors, _id, name, price, imageUrl, description, altTxt) {
@@ -18,14 +18,14 @@ class ListeCanape {
   }
 }
 let listeCanapeDisponible = function () {
-   fetch(urlProduits) // l'API fetch retourne l'objet products du seveur
+   fetch(urlProduits) // l'API fetch retourne l'objet products du seveur contenant la liste des fiches produits pour les canapés disponibles
     .then(statusConnect => statusConnect.json())
     .then(listeProduits => {
       console.log('données collectées => :',listeProduits);
       console.log('Il y a : ',listeProduits.length,' Canapé \(s\) disponible\(s\)');
       let blocSectionProduits = document.getElementById("items");
       for (i = 0; i < listeProduits.length; i++) {
-        const productCard = `
+        const ficheProduit = `
           <a href="./product.html?id=${listeProduits[i]._id}">
             <article>
               <img
@@ -39,7 +39,7 @@ let listeCanapeDisponible = function () {
             </article>
           </a>
         `;
-        blocSectionProduits.innerHTML += productCard;
+        blocSectionProduits.innerHTML += ficheProduit;
       }
     }); 
 };

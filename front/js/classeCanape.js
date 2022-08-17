@@ -1,26 +1,26 @@
 /*   
 Script Projet OpenClassrooms n°05 "Kanap"
-par Manuel MILLET le 15 août 2022 11h00
-ce fichier contient les classes "Canape".
+par Manuel MILLET le 17 août 2022 18h00
+ce fichier contient les classes "Canape"
 */
 //*********************************************************************************************************************************************************************************************//
 // La classe "Canape" contient les propriétés et les méthodes des produits représentant les canapés disponibles enregisteés dans le serveur en vu d'être afficher dans la page "index.html"
 //*********************************************************************************************************************************************************************************************//
 class Canape {
-  constructor(colors, _id, name, price, imageUrl, description, altTxt, parentDiv) {
     // Propriétées de l'objet Canape
-    this.colors = colors;
-    this._id = _id;
-    this.name = name;
-    this.price = price;
-    this.imageUrl = imageUrl;
-    this.description = description;
-    this.altTxt = altTxt;
-    this.parentDiv = parentDiv;
+    constructor(colors, _id, name, price, imageUrl, description, altTxt, parentDiv) {
+        this.colors = colors;
+        this._id = _id;
+        this.name = name;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.altTxt = altTxt;
+        this.parentDiv = parentDiv;
     }
 
     // Méthode "displayInfosCanape" affiche les caractéristiques de l'objet "Canape" dans la page d'accueil index.html
-    displayInfosCanape() {
+    displayHomePage() {
         //Création des éléments HTML pour un canapé
         const productLink = document.createElement("a");
         const productArticle = document.createElement("article");
@@ -55,7 +55,7 @@ class Canape {
     }
     // Cette méthode "displayCard" affiche les caractéristiques de la fiche produit du canapé choisi
     //  dans la page product.html dès la reception de l'API fetch.
-    displayCard(imgClassname, titleId, priceId, descriptionId, colorsId) {
+    displayProduct(imgClassname, titleId, priceId, descriptionId, colorsId) {
         let selectedCanapeImage = document.createElement("img");
         document.getElementsByClassName(imgClassname)[0].appendChild(selectedCanapeImage);
         selectedCanapeImage.setAttribute("src",this.imageUrl);

@@ -1,6 +1,6 @@
 /*   
 Script Projet OpenClassrooms n°05 "Kanap"
-par Manuel MILLET le 15 août 2022 17h00
+par Manuel MILLET le 17 août 2022 18h00
 ce fichier contient la classe Order.
 */
 //****************************************************************************************************************//
@@ -10,15 +10,15 @@ ce fichier contient la classe Order.
 //****************************************************************************************************************//
 class Order {
 	constructor(_id, color, imageUrl, altTxt, name, description, price, quantity) {
-	// Propriétés de l'objet Order
-	this._id = _id;
-	this.color = color;
-	this.imageUrl = imageUrl;
-	this.altTxt = altTxt;
-	this.name = name;
-	this.description = description;
-	this.price = price;
-	this.quantity = quantity;
+		// Propriétés de l'objet Order
+		this._id = _id;
+		this.color = color;
+		this.imageUrl = imageUrl;
+		this.altTxt = altTxt;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.quantity = quantity;
 	}
 	// Méthodes pour l'affichage de la commande dadns la page cart.html
 	// la méthode "" affiche les caractéristiques de tout les produits selectionnés par la client dans la page panier "cart.html"
@@ -105,5 +105,4 @@ class Order {
 		orderDiv6.appendChild(orderParagrapheSupprimer);
 		orderParagrapheSupprimer.setAttribute("class",tagClasspara);
 	}// Fin de la méthode d'affichage du panier dans la page cart.html
-
 }// Fin de la classe Order

@@ -1,6 +1,6 @@
 /*   
 Script Projet OpenClassrooms n°05 "Kanap"
-par Manuel MILLET le 17 août 2022 18h00
+par Manuel MILLET le 21 août 2022 18h00
 ce fichier contient la classe Order.
 */
 //****************************************************************************************************************//
@@ -9,7 +9,7 @@ ce fichier contient la classe Order.
 // Les méthodes permetent d' initialiser, d'afficher, d'ajouter ou de supprimer des produits etc...
 //****************************************************************************************************************//
 class Order {
-	constructor(_id, color, imageUrl, altTxt, name, description, price, quantity) {
+	constructor(_id, color, imageUrl, altTxt, name, description, price, quantity,idInput,idButtonSup) {
 		// Propriétés de l'objet Order
 		this._id = _id;
 		this.color = color;
@@ -19,10 +19,12 @@ class Order {
 		this.description = description;
 		this.price = price;
 		this.quantity = quantity;
+		this.idInput = idInput;//'l\'id de l\'élément input pour le changement de quantité' 
+		this.idButtonSup = idButtonSup;//'l\'id de l\'élément button pour la supppression du produit dans le panier'
 	}
 	// Méthodes pour l'affichage de la commande dadns la page cart.html
 	// la méthode "" affiche les caractéristiques de tout les produits selectionnés par la client dans la page panier "cart.html"
-	displayInfosOrder() {
+	displayInfosOrder(idInput,idButtonSup) {
 		// Création des éléments HTML pour la commande
 		const orderArticle = document.createElement("article");//class="cart__item" data-id="{product-ID}" data-color="{product-color}
 		const orderDiv1 = document.createElement("div");//class="cart__item__img"
@@ -37,16 +39,16 @@ class Order {
 		const orderParagrapheQuantity = document.createElement("p");// ici la Quantite du produit
 		const orderInput = document.createElement("input");// type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42"
 		const orderDiv6 = document.createElement("div");// class="cart__item__content__settings__delete"
-		const orderParagrapheSupprimer = document.createElement("p");// class="deleteItem" texte paragraphe "Supprimer"
+		const orderButtonSupprimer = document.createElement("button");// class="deleteItem" texte bouton "Supprimer"
 		// Création des syntaxes data
-		let dataId = String(this._id);
-		let dataColor = String(this.color);
+		const dataId = String(this._id);
+		const dataColor = String(this.color);
 		// Création des noeuds
-		let nodeName = document.createTextNode(this.name);// noeud "name"
-		let nodeColor = document.createTextNode(this.color);// noeud "color"
-		let nodePrice = document.createTextNode(this.price + ",00" + " €");// noeud  "price"
-		let nodeQuantity = document.createTextNode('Qté : ' + this.quantity);// noeud "Quantity"
-		let nodeSupprimer = document.createTextNode('Supprimer');// noeud "Suppimer"
+		const nodeName = document.createTextNode(this.name);// noeud "name"
+		const nodeColor = document.createTextNode(this.color);// noeud "color"
+		const nodePrice = document.createTextNode(this.price + ",00" + " €");// noeud  "price"
+		const nodeQuantity = document.createTextNode('Qté : ' + this.quantity);// noeud "Quantity"
+		const nodeSupprimer = document.createTextNode('Supprimer');// noeud "Suppimer"
 		// Création des tags pour les attributs
 		const parentSection = "cart__items";// section parent => <section id="cart__items">
 		const tagClassArticle = "cart__item";
@@ -57,7 +59,7 @@ class Order {
 		const tagClassDiv5 = "cart__item__content__settings__quantity";
 		const tagClassInput = 'itemQuantity' + ' type="number" ' + ' name="itemQuantity" ' + ' min="1" ' + ' max="100" ' + ' value="42" ';
 		const tagClassDiv6 = "cart__item__content__settings__delete";
-		const tagClasspara = "deleteItem";
+		const tagClassButton = "deleteItem";
 		// Création des éléments HTML article
 		document.getElementById(parentSection).appendChild(orderArticle);
 		orderArticle.setAttribute("class",tagClassArticle);
@@ -97,12 +99,36 @@ class Order {
 		// Création de l'élément input
 		orderDiv5.appendChild(orderInput);
 		orderInput.setAttribute("class",tagClassInput);
+		orderInput.setAttribute("id",this.idInput);
+
+		// *********************   modification de la quantité  *****************
+		orderInput.addEventListener('onChange', function() {
+			//mettre à jour la quantité
+			//mettre à jour le prix totale pour l'article
+		});
+		//.bind(this);
+		// *********************   modification de la quantité  *****************
+
 		// Création de l'élément DIV6 class="cart__item__content__settings__delete"
 		orderDiv5.appendChild(orderDiv6);
 		orderDiv6.setAttribute("class",tagClassDiv6);
 		// Création de l'élément paragraphe class="deleteItem" texte paragraphe "Supprimer"
-		orderParagrapheSupprimer.appendChild(nodeSupprimer);
-		orderDiv6.appendChild(orderParagrapheSupprimer);
-		orderParagrapheSupprimer.setAttribute("class",tagClasspara);
+		orderButtonSupprimer.appendChild(nodeSupprimer);
+		orderDiv6.appendChild(orderButtonSupprimer);
+		orderButtonSupprimer.setAttribute("class",tagClassButton);
+		orderButtonSupprimer.setAttribute("id",this.idButtonSup);
+		// *********************   Suppression du choix   *****************
+		console.log('ici ligne 122 this.idButtonSup: ',this.idButtonSup);
+		let idASupprimer = this._id;
+		let colorAsupprimer = this.color;
+		const elementSup = document.getElementById(this.idButtonSup);
+		elementSup.addEventListener('click', function() {
+			console.log('Avec l id :',idASupprimer);
+			console.log('Avec la couleur :',colorAsupprimer);
+			alert('Voulez-vous vraiment supprimer le choix:\n' + '\nCliquez sur ok pour le supprimer !');
+			cartUser = new cartUser();
+			cartUser.removeToCart(idToRemove,colorToRemove);
+		});
+		//*************************************************************** */
 	}// Fin de la méthode d'affichage du panier dans la page cart.html
 }// Fin de la classe Order

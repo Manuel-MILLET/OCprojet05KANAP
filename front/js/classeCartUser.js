@@ -1,6 +1,6 @@
 /*   
 Script Projet OpenClassrooms n°05 "Kanap"
-par Manuel MILLET le 17 août 2022 18h00
+par Manuel MILLET le 21 août 2022 18h00
 ce fichier contient les classes "Canape".
 */
 //*********************************************************************************************************************************************************************************************//
@@ -24,7 +24,7 @@ class CartUser {
         const cartUser = cart.basket;
         let cartLength = cartUser.length;
         if (cartUser == null || cartUser == undefined || cartLength <= 0) {
-            this.saveCartUser(cartUser);
+            this.saveCartUser(choiceUser);
         }
         let update = true;
             for (let indice in cartUser) {
@@ -51,11 +51,26 @@ class CartUser {
         }
     }//fin de la méthode "addToCart"
 
+    removeToCart(idToRemove,colorToRemove){
+        console.log('Salut MANU !!');
+        const cart = new CartUser();
+        const cartUser = cart.basket;
+        let cartLength = cartUser.length;
+        const idSup = idToRemove;
+        const colorSup = colorToRemove;
+        console.log(' ici ligne 60 id du produit à sup: ', idToRemove,' avec la couleur : ',colorToRemove);
+        let upDate = true;
+        for (let indice in cartUser) {
+            if(cartUser[indice].id == idToRemove){
+                alert('ici il faut supprimer l ID :' + idToRemove + 'Avec la couleur : ' + colorToRemove);
+            }
+        }
+    }
+
     saveCartUser(cartUser){
-        cartUser.sort();// tri du panier avant la sauvagarde
+        //cartUser.sort();// tri du panier avant la sauvagarde
         localStorage.setItem("cartUser",JSON.stringify(cartUser));
-        this.getNumberProduct(cartUser);
-        alert('Mise à jour de votre panier, cliquez sur "OK" pour continuer !');
+        alert('Mise à jour de votre panier, cliquez sur "OK" pour continuer !')
     }
 
     getNumberProduct(cartUser) {
@@ -65,9 +80,20 @@ class CartUser {
         }
         return nbCanape;
     }
+
 }// fin de la classe "CartUser"
+
 /*
-    removeChoiceUser(indice) {
-        console.log(' FONCTION DE SUPPRESSION DU PRODUIT DANS LE PANIER A FAIRE !!!!!');
+// méthode removeItemProduct(item) traitement des suppressions dans le panier "cartUser" de l'item du produit selectionnés dans la page cart.html
+    removeItemProduct(item,cartUser) {
+	// traitement des suppressions dans le panier "cartUser" de l'item du produit selectionnés dans la page cart.html
+	console.log('fonction remouve item en route');
+	for (let i in cartUser){
+		const element = document.getElementsByClassName("deleteItem")[item];
+		const paragrapheCible = element.closest('.deleteItem');
+		paragrapheCible.addEventListener("click", function() {
+			console.log(' tu as cliqué sur le paragraphe n°'+Number(item+1)+'  ');
+		});
+	}
     }
-*/
+    */

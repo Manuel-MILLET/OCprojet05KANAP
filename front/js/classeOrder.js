@@ -1,6 +1,6 @@
 /*   
 Script Projet OpenClassrooms n°05 "Kanap"
-par Manuel MILLET le 21 août 2022 18h00
+par Manuel MILLET le 26 août 2022 12h00
 ce fichier contient la classe Order.
 */
 //****************************************************************************************************************//
@@ -23,9 +23,9 @@ class Order {
 		this.idButtonSup = idButtonSup;//'l\'id de l\'élément button pour la supppression du produit dans le panier'
 	}
 	// Méthodes pour l'affichage de la commande dadns la page cart.html
-	// la méthode "" affiche les caractéristiques de tout les produits selectionnés par la client dans la page panier "cart.html"
-	displayInfosOrder(idInput,idButtonSup) {
-		// Création des éléments HTML pour la commande
+	// la méthode "displayInfosOrder" affiche les caractéristiques de tout les produits selectionnés par la client dans la page panier "cart.html"
+	displayInfosOrder() {
+		//Création des éléments HTML pour la commande
 		const orderArticle = document.createElement("article");//class="cart__item" data-id="{product-ID}" data-color="{product-color}
 		const orderDiv1 = document.createElement("div");//class="cart__item__img"
 		const orderImage = document.createElement("img");//src="../images/product01.jpg" alt="Photographie d'un canapé"
@@ -100,15 +100,22 @@ class Order {
 		orderDiv5.appendChild(orderInput);
 		orderInput.setAttribute("class",tagClassInput);
 		orderInput.setAttribute("id",this.idInput);
-
 		// *********************   modification de la quantité  *****************
-		orderInput.addEventListener('onChange', function() {
-			//mettre à jour la quantité
-			//mettre à jour le prix totale pour l'article
-		});
-		//.bind(this);
-		// *********************   modification de la quantité  *****************
-
+		const elementInput = document.getElementById(this.idInput);
+		elementInput.addEventListener('change', function() {
+			let newQuantity = Number.parseInt(Number(elementInput.value));
+			const testInteger = Number.isInteger(Number(elementInput.value));
+			if (newQuantity === 0) {// quantité saisie = 0 
+				alert('Pour modifier la quantité à "0" cliquez sur le bouton "Supprime"');
+			}else if (typeof(newQuantity) !="number" || newQuantity == null || newQuantity == undefined || !testInteger){
+				alert('La quantité saisie n\'est pas valide, merci de saisir un nombre entier compris entre 1 et 100');
+			}else if (newQuantity < 0 || newQuantity > 100 ){
+				alert('La quantité du produit selectionné doir être comprise entre 1 et 100 compris');
+			}else{// ici la quqntité saisie est coorecte
+				const cartUser = new CartUser();
+				cartUser.updateQuantity(this._id,this.color,orderInput.value);
+			}
+		}.bind(this));	
 		// Création de l'élément DIV6 class="cart__item__content__settings__delete"
 		orderDiv5.appendChild(orderDiv6);
 		orderDiv6.setAttribute("class",tagClassDiv6);
@@ -117,18 +124,18 @@ class Order {
 		orderDiv6.appendChild(orderButtonSupprimer);
 		orderButtonSupprimer.setAttribute("class",tagClassButton);
 		orderButtonSupprimer.setAttribute("id",this.idButtonSup);
-		// *********************   Suppression du choix   *****************
-		console.log('ici ligne 122 this.idButtonSup: ',this.idButtonSup);
-		let idASupprimer = this._id;
-		let colorAsupprimer = this.color;
+		// *********************   Suppression d'un produit dans le panier   *****************
 		const elementSup = document.getElementById(this.idButtonSup);
 		elementSup.addEventListener('click', function() {
-			console.log('Avec l id :',idASupprimer);
-			console.log('Avec la couleur :',colorAsupprimer);
-			alert('Voulez-vous vraiment supprimer le choix:\n' + '\nCliquez sur ok pour le supprimer !');
-			cartUser = new cartUser();
-			cartUser.removeToCart(idToRemove,colorToRemove);
-		});
-		//*************************************************************** */
+			if (confirm("Voulez-vous vraiment supprimer ce produit ?"+
+						"\n avec le nom: "+ this.name +
+						"\n et la couleur: "+ this.color
+						) == true) {
+				const cartUser = new CartUser();
+				cartUser.removeFromCart(this._id,this.color);
+			}else{
+				alert("Suppression annulé !");
+			}
+		}.bind(this));
 	}// Fin de la méthode d'affichage du panier dans la page cart.html
 }// Fin de la classe Order

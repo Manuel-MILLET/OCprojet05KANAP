@@ -1,6 +1,6 @@
 /*   
 Script Projet OpenClassrooms n°05 "Kanap"
-par Manuel MILLET le 21 août 2022 18h00
+par Manuel MILLET le 24 août 2022 15h00
 ce fichier contient les classes "ProductUser".
 */
 //*********************************************************************************************************************************************************************************************//
@@ -26,7 +26,7 @@ class ProductUser {
     // Cette méthode "displayProduct" affiche les caractéristiques de la fiche produit du canapé choisi par le client
     //  dans la page product.html dès la reception de l'API fetch.
     displayProduct(imgClassname, titleId, priceId, descriptionId, colorsId) {
-        let selectedCanapeImage = document.createElement("img");
+        const selectedCanapeImage = document.createElement("img");
         document.getElementsByClassName(imgClassname)[0].appendChild(selectedCanapeImage);
         selectedCanapeImage.setAttribute("src",this.imageUrl);
         selectedCanapeImage.setAttribute("alt",this.altTxt);
@@ -49,7 +49,7 @@ class ProductUser {
     }
   
     // Méthodes de l'objet ProductUser
-    // Cette méthode "inputChoice" teste la saisie les informations (couleur et quantité) sur le canapé selectionné par le client dans la page "product.html"
+    // Cette méthode "selectedChoice" teste la saisie les informations (couleur et quantité) sur le canapé selectionné par le client dans la page "product.html"
     // puis envoie le choix du client pour l'ajouter au panier dans "localStorage"
     selectedChoice(idProduct,buttonName) {
         const element = document.getElementById(buttonName);
@@ -72,10 +72,8 @@ class ProductUser {
                 checkInputProduct = true;
             }
             if (checkInputProduct) {
-                console.log('ici ligne 75 data of choiceProduct',idProduct,'couleur du produit :',colors.value,' quatité de produit',qty);
-                let choiceProduct = {id:idProduct, color:colors.value, quantity:qty};
-                console.log(' ici ligne 77 choix du produit',choiceProduct);
-                let cartUser = new CartUser();
+                const choiceProduct = {id:idProduct, color:colors.value, quantity:qty};
+                const cartUser = new CartUser();
                 cartUser.addToCart(choiceProduct);
             } 
         })// Fin de addEventListener

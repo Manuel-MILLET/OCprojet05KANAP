@@ -1,6 +1,6 @@
 /*   
 Script Projet OpenClassrooms n°05 "Kanap"
-par Manuel MILLET le 21 août 2022 18h00
+par Manuel MILLET le 25 août 2022 12h00
 ce fichier contient les classes "Canape"
 */
 //*********************************************************************************************************************************************************************************************//
@@ -31,14 +31,14 @@ class Canape {
     const productName = document.createElement("h3");
     const productDescription = document.createElement("p");
     //Création des noeuds 
-    let nodeName = document.createTextNode(this.name);// noeud "name"
-    let nodeDescription = document.createTextNode(this.description);// noeud "description"
+    const nodeName = document.createTextNode(this.name);// noeud "name"
+    const nodeDescription = document.createTextNode(this.description);// noeud "description"
     //Création des tag pour les attributs
     const tagClassProductName = "productName";
     const tagClassProductDescription = "productDescription";
-    let urlIdProduct = "./product.html?id=" + this._id;
+    const urlIdProduct = "./product.html?id=" + this._id;
     //Creation de l'élément HTML "a" avec le lien du produit 
-    //const parentDiv = "items";  
+    //insertHtml = "items";  
     document.getElementById(insertHtml).appendChild(productLink);
     productLink.setAttribute("href",urlIdProduct);
     //Creation de l'élément HTML "article"

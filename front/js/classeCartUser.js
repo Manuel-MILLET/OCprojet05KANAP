@@ -1,11 +1,11 @@
 /*   
 Script Projet OpenClassrooms n°05 "Kanap"
-par Manuel MILLET le 27 août 2022 10h00
-ce fichier contient les classes "Canape".
+par Manuel MILLET le 03 septembre 2022 18h00
 */
 //*********************************************************************************************************************************************************************************************//
 // La classe "CartUser" contient les propriétés et les méthodes des produits enregistrés dans le panier du client
 //*********************************************************************************************************************************************************************************************//
+// La classe "CartUser" est définie dans le fichier "classeCartUser.js"
 class CartUser {
     // propriétées de l'objet CartUser
     constructor() {
@@ -18,7 +18,7 @@ class CartUser {
         }
     }
     // Méthodes le l'objet CartUser
-    //Méthode checkInput ajoute le choix du client au panier si la saie est ok
+    //Méthode "addToCart" ajoute le choix du client au panier
     addToCart(choiceUser) {// ici choiceUser contient l'id , la  couleur et la quantité choisie par le client
         const cart = new CartUser();
         const cartUser = cart.basket;
@@ -56,6 +56,7 @@ class CartUser {
         }
     }//fin de la méthode "addToCart"
 
+    // La méthode "removeFromCart" supprime un produit avec l'id "idToRemove" et la couleur "colorToRemove" du panier
     removeFromCart(idToRemove,colorToRemove){
         const cart = new CartUser();
         let cartUser = cart.basket;
@@ -72,9 +73,10 @@ class CartUser {
         if (checkerror) {
             alert('Désolé, mais le produit que vous désirez supprimer n\'est pas dans votre panier !!!');
         }
-    }
+    }//fin de la méthode "removeFromCart"
 
-    updateQuantity (idToUpdate,colorToUpdate,newQty) {
+    // La méthode "updateQuantity" modifie la quantité du produit avec l'id "idToUpdate" et la couleur "colorToUpdate" du panier par la quantité "newQty"
+    updateQuantity(idToUpdate,colorToUpdate,newQty) {
         const cart = new CartUser();
         let cartUser = cart.basket;
         let checkerror = true;
@@ -95,31 +97,35 @@ class CartUser {
                 }   
             }
         }
-    }
+    }//fin de la méthode "updateQuantity"
 
+    // La méthode "saveCartUser" enregistre la réactualisation du panier dans "localStorage" du navigateur
     saveCartUser(cartUser){
         localStorage.setItem("cartUser",JSON.stringify(cartUser));
-    }
+    }//fin de la méthode "saveCartUser"
 
+    //La méthode "getNumberProduct" retourne le nombre de canapé selectionné(s) par le client dans le panier
     getNumberProduct(cartUser) {
         let nbCanape = 0 ;
         for (let product in cartUser){
             nbCanape += cartUser[product].quantity;
         }
         return nbCanape;
-    }
+    }//fin de la méthode "getNumberProduct"
 
-    displayOkInAddTocart () {//validation de mise à jour !! en modifiant la couleur du bouton "addToCart"
-        // affichage du message "Produit enregistré dans votre panier !" dans le button "addToCart" pendant 2,5 s
+    // La méthode "displayOkInAddTocart" modifie le style du bouton "Ajouter au panier" de la page product.html quand le choix du client est validé
+    displayOkInAddTocart() {//validation de mise à jour !! en modifiant la couleur du bouton "addToCart"
+        // affichage du message "Produit enregistré dans votre panier !" dans le button "addToCart" pendant 2 s
         document.getElementById("addToCart").style.background = "green";
         document.getElementById("addToCart").innerHTML = "Produit enregistré dans votre panier !";
         setTimeout(() => {
             document.getElementById("addToCart").style.background = "#2c3e50";
             document.getElementById("addToCart").innerHTML = "Ajouter au panier";
         },"2000");
-    }
+    }//fin de la méthode "displayOkInAddTocart"
 
-    emptyCart (cartUser){
+    // La méthode "emptyCart" retourne "vrai" si le panier du client est vide sinon "faux" 
+    emptyCart(cartUser){
         let cartLength = cartUser.basket.length;
         let emptyCart = false;
         if (cartLength === 0 ){
@@ -128,5 +134,5 @@ class CartUser {
             emptyCart = false;
         }
         return emptyCart;
-    }
+    }//fin de la méthode "emptyCart"
 }// fin de la classe "CartUser"

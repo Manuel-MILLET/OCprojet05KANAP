@@ -1,10 +1,10 @@
 /*
 Script Porjet OpenClassrooms n°05 Kanap
-par Manuel MILLET le 31 août à 12h00
+par Manuel MILLET le 03 septembre à 18h00
 Script de la page confirmation.html pour l'affichage dynamique de produits
 */
 
-// fonction "getOrderId" recherche et retourne le numero de commande transmi via l'url par la page cart.html
+// La fonction "getOrderId" recherche et retourne le numero de commande "orderId" transmi via l'url par la page cart.html
 function getOrderId() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -18,24 +18,28 @@ function getOrderId() {
         return orderId;
     }
 }
-// fonction "displayOrderId" affiche le numero de commande "orderId" dans la page confirmation.html
+
+// La fonction "displayOrderId" affiche le numero de commande "orderId" dans la page confirmation.html
 function displayOrderId (orderId) {
     document.getElementById("orderId").innerHTML = orderId;
 }
-// fonction "displayErrorStyle" modifie la couleur de fond en rouge de l'élément html qui indique le "orderId" si il n'est pas valide"
+
+// La fonction "displayErrorStyle" modifie la couleur de fond en rouge de l'élément html qui indique le "orderId" si il n'est pas valide"
 function displayErrorStyle () {
 	document.querySelector(".confirmation p").style.background = "red";
 	document.querySelector(".confirmation p").innerHTML = "Numéro de commande invalide !";
 }
-//fonction "displayValidStyle" modifie la couleur de fond en vert (pendant 4s) de l'élément html qui indique le "orderId" si il est valide"
+
+// La fonction "displayValidStyle" modifie la couleur de fond en vert (pendant 4s) de l'élément html qui indique le "orderId" si il est valide"
 function displayValidStyle () {
     document.querySelector(".confirmation p").style.background = "green";
     document.querySelector(".confirmation p").style.color = "white";
 }
 
-
-//Programme principal, retourne et affiche le numero de commande, puis vide le panier dans localStorage
-const orderId = getOrderId();
-displayOrderId(orderId);
+//************************ Programme principal *******************************/
+// Il récupère, retourne et affiche le numero de commande, puis vide le panier dans localStorage
+const orderId = getOrderId();// recherche le numéro de commande
+displayOrderId(orderId);// La fonction "displayOrderId" affiche le numero de commande "orderId" dans la page confirmation.html
 //Suppression de tout les produits du panier dans localStorage
 localStorage.clear();
+// Fin de l'application "KANAP"

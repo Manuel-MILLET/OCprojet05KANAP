@@ -1,6 +1,6 @@
 /*   
 Script Projet OpenClassrooms n°05 "Kanap"
-par Manuel MILLET le 03 septembre 2022 18h00
+par Manuel MILLET le 06 septembre 2022 18h00
 */
 //*********************************************************************************************************************************************************************************************//
 // La classe "CartUser" contient les propriétés et les méthodes des produits enregistrés dans le panier du client
@@ -78,20 +78,18 @@ class CartUser {
     // La méthode "updateQuantity" modifie la quantité du produit avec l'id "idToUpdate" et la couleur "colorToUpdate" du panier par la quantité "newQty"
     updateQuantity(idToUpdate,colorToUpdate,newQty) {
         const cart = new CartUser();
-        let cartUser = cart.basket;
-        let checkerror = true;
+        const cartUser = cart.basket;
         if (newQty === 0) {
-            alert('Désolé, mais si vous souhaitez mettre la quantité du produit à "0" cliquez sur le bouton "Supprimer"');
+            alert('Pour modifier la quantité à "0" cliquez sur le bouton "Supprimer"');
         }else{
             if (newQty == null || newQty == undefined) {
-                alert('Désolé, mais la quantité du produit que vous désirez modifier n\'est pas valide !!!');
+                alert('La quantité du produit que vous désirez modifier n\'est pas valide !!!');
             }else{
                 for (let indice in cartUser) {
                     if(cartUser[indice].id == idToUpdate && cartUser[indice].color == colorToUpdate){
                         cartUser[indice].quantity = newQty;
                         this.saveCartUser(cartUser);
                         location.reload();
-                        checkerror = false;
                         break;
                     }
                 }   
@@ -101,8 +99,28 @@ class CartUser {
 
     // La méthode "saveCartUser" enregistre la réactualisation du panier dans "localStorage" du navigateur
     saveCartUser(cartUser){
+        this.cartSort(cartUser);// tri du panier avant sauvegarde
         localStorage.setItem("cartUser",JSON.stringify(cartUser));
     }//fin de la méthode "saveCartUser"
+
+    // La méthode cartSort tri le panier par "ID"
+    cartSort(cartUser){
+        console.log('ici ligne 102 avant le tri de cartUser cartUSer est : ',cartUser);
+        for (let i in cartUser) {
+            console.log('avant le tri tableau cartUser n° : ',i,' est ',cartUser[i]);
+        }
+        cartUser.sort(function(a,b){
+            let x = a.id.toLowerCase();
+            let y = b.id.toLowerCase();
+            if (x < y) {return -1}
+            if (x > y) {return 1}
+            return 0;
+        });
+        console.log('ici ligne 113 après le tri de cartUser cartUSer est : ',cartUser);
+        for (let i in cartUser) {
+            console.log('apres le tri tableau cartUser n° : ',i,' est ',cartUser[i]);
+        }
+    }
 
     //La méthode "getNumberProduct" retourne le nombre de canapé selectionné(s) par le client dans le panier
     getNumberProduct(cartUser) {

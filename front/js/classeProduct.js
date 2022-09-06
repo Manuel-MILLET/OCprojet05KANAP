@@ -1,6 +1,6 @@
 /*   
 Script Projet OpenClassrooms n°05 "Kanap"
-par Manuel MILLET le 03 septemnre 18h00
+par Manuel MILLET le 06 septemnre 18h00
 ce fichier contient la classe "Product"
 */
 //*********************************************************************************************************************************************************************************************//
@@ -110,7 +110,7 @@ class Product {
     })// Fin de addEventListener
   }// Fin de la méthode "selectedChoice"
 
-  	// Méthodes pour l'affichage de la commande dadns la page cart.html
+	// Méthodes pour l'affichage de la commande dadns la page cart.html
 	// la méthode "displayInfosOrder" affiche les caractéristiques de tout les produits selectionnés par la client dans la page panier "cart.html"
 	displayInfosOrder(colorSelected,qty) {
 		//Création des éléments HTML pour la commande
@@ -128,7 +128,7 @@ class Product {
 		const orderInput = document.createElement("input");// type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42"
 		const orderDiv6 = document.createElement("div");// class="cart__item__content__settings__delete"
 		const orderButtonSupprimer = document.createElement("button");// class="deleteItem" texte bouton "Supprimer"
-		// Création des syntaxes data
+		// Création des syntaxes "data"
 		const dataId = String(this._id);
 		const dataColor = String(this.color);
 		// Création des noeuds
@@ -196,14 +196,14 @@ class Product {
 			let newQuantity = Number.parseInt(Number(elementInput.value));
 			const testInteger = Number.isInteger(Number(elementInput.value));
 			if (newQuantity === 0) {// quantité saisie = 0 
-				alert('Pour modifier la quantité à "0" cliquez sur le bouton "Supprime"');
+				alert('Pour modifier la quantité à "0" cliquez sur le bouton "Supprimer"');
 			}else if (typeof(newQuantity) !="number" || newQuantity == null || newQuantity == undefined || !testInteger){
 				alert('La quantité saisie n\'est pas valide, merci de saisir un nombre entier compris entre 1 et 100');
 			}else if (newQuantity < 0 || newQuantity > 100 ){
 				alert('La quantité du produit selectionné doir être comprise entre 1 et 100 compris');
-			}else{// ici la quqntité saisie est coorecte
+			}else{// ici la quantité saisie est coorecte
 				const cartUser = new CartUser();
-				cartUser.updateQuantity(this._id,colorSelected,orderInput.value);
+				cartUser.updateQuantity(this._id,colorSelected,newQuantity);
 			}
 		}.bind(this));	
 		// Création de l'élément DIV6 class="cart__item__content__settings__delete"
